@@ -14,7 +14,7 @@ So as not to have issues with localtunnels (we are using the streamlit library),
 
 Moreover, if possible, please run the cells within a GPU runtime to get faster processing in case of WikiArt and Pneumonia versions.
 
-To extract black boxes' explanations, the algorithms [RISE](https://github.com/eclique/RISE) and [Grad-CAM](https://github.com/jacobgil/pytorch-grad-cam) were used (last seen March 23th, 2025).
+To extract black boxes' explanations, the algorithms [RISE](https://github.com/eclique/RISE) and [Grad-CAM](https://github.com/jacobgil/pytorch-grad-cam) were used (last seen March 23th, 2025), but slightly modified to be optimized due to memory constraints.
 
 A decision tree was trained on 20k applicant cases extracted from https://www.kaggle.com/datasets/taweilo/loan-approval-classification-data, license [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). You'll have to decide, together with suggestions coming from the algorithm, hether to grant or deny the loan to an applicant. In the end, if you'll have reached a sufficient number of new data, the algorithm will automatically retrain itself.
 
