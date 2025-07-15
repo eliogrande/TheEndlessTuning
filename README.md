@@ -7,12 +7,12 @@
 
 The *Endless Tuning* aims to be a solution to two main artificial intelligence issues: human replacement and the so-called responsibility gap.
 
-While the Endless Tuning might theoretically be adopted also with respect to generative artificial intelligence, here three silly protocol examples follow, on three decision-making settings (loan granting, art style recognition, pneumonia diagnosis). Machine's suggestions will be given by a particular use - say, a *hermeneutic* one - of eXplainability in machine learning.
+While the Endless Tuning might theoretically be adopted also with respect to generative artificial intelligence, here we present it in three silly protocol examples, on three decision-making settings (loan granting, art style recognition, pneumonia diagnosis). Machine's suggestions will be given by a particular use - say, a *hermeneutic* one - of eXplainability in machine learning.
 In the end, you'll be able to download the .csv file of your interactions, with respect to the current sessions.
 
-So as not to have issues with localtunnels (we are using the streamlit library), it is strongly recommended to start the runtime from zero. While the first cell is mainly introductive, the other cells run separately. So, f. e., you have to manually stop the execution of the "loan-granting" cell in order to run the "WikiArt" cell.
+So as not to have issues with localtunnels (we are using the streamlit library), it is strongly recommended to start the runtime from zero in case you try it on Colab (see the bottom of the page). While the first cell is mainly introductive, the other cells run separately. So, f. e., you have to manually stop the execution of the "loan-granting" cell in order to run the "WikiArt" cell.
 
-Moreover, if possible, please run the cells within a GPU runtime to get faster processing in case of WikiArt and Pneumonia versions.
+Moreover, if possible, please use a GPU runtime to get faster processing in case of WikiArt and Pneumonia versions.
 
 To extract black boxes' explanations, the algorithms [RISE](https://github.com/eclique/RISE) and [Grad-CAM](https://github.com/jacobgil/pytorch-grad-cam) were used (last seen March 23th, 2025), but slightly modified to be optimized due to memory constraints.
 
