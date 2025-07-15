@@ -15,3 +15,13 @@ So as not to have issues with localtunnels (we are using the streamlit library),
 Moreover, if possible, please run the cells within a GPU runtime to get faster processing in case of WikiArt and Pneumonia versions.
 
 To extract black boxes' explanations, the algorithms [RISE](https://github.com/eclique/RISE) and [Grad-CAM](https://github.com/jacobgil/pytorch-grad-cam) were used (last seen March 23th, 2025).
+
+A decision tree was trained on 20k applicant cases extracted from https://www.kaggle.com/datasets/taweilo/loan-approval-classification-data, license [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0). You'll have to decide, together with suggestions coming from the algorithm, hether to grant or deny the loan to an applicant. In the end, if you'll have reached a sufficient number of new data, the algorithm will automatically retrain itself.
+
+A ResNet50 from torchvision.models was fully finetuned on 28k artworks' images, extracted from the *WikiArt* dataset (https://www.kaggle.com/datasets/steubk/wikiart), resized with padding to 224x224 pixels and reduced to 7 classes. You'll have to decide, together with suggestions coming from the algorithm, whether the image pertains to baroque, romanticism style and so on. In the end, if you'll have reached a sufficient number of new data, the algorithm will automatically retrain itself. A ResNet34 was adopted also with 1080x1080px images, with padding.
+
+A ResNet18 from torchvision.models was fully finetuned on 2.5k chest x-ray images extracted from the *ChestX-Ray Images (Pneumonia)* dataset (https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia), resized with padding to 224x224 pixels. You'll have to decide, together with suggestions coming from the algorithm, whether the image indicates the presence of pneumonia or not. In the end, if you'll have reached a sufficient number of new data, the algorithm will automatically retrain itself. Same done with 1080x1080px images.
+
+[Here a jupyter notebook to test it on Google Colab](https://colab.research.google.com/drive/1m1mDWTlE5egzT_oSR18hHLlcwwrX401N?authuser=1#scrollTo=3pMgbEeXeB5X).
+
+
