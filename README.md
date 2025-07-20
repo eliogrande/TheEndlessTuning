@@ -28,6 +28,5 @@ A single environment will be sufficient to test all the versions. See the requir
 
 
 ## License
-This code is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).  
-See the [LICENSE](LICENSE) file for details.
+This code is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
 
