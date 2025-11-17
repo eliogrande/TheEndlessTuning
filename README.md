@@ -24,9 +24,7 @@ A ResNet18 from torchvision.models was fully finetuned on 2.5k chest x-ray image
 
 [Here a jupyter notebook to test it on Google Colab](https://colab.research.google.com/drive/1m1mDWTlE5egzT_oSR18hHLlcwwrX401N?authuser=1#scrollTo=3pMgbEeXeB5X).
 
-A single environment will be sufficient to test all the versions. See the requirements. 
-
-
+Please note that, here on GitHub, only a little sample of the datasets was loaded. However, through Colab it will be possible to download folders including full data.
 ## License
 This code is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0).
 
