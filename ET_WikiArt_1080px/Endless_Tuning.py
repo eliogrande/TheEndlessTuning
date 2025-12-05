@@ -121,17 +121,19 @@ def pagina_2():
 
     images_folder = './case_studies/'
     sottocartelle = [d for d in os.listdir(images_folder) if os.path.isdir(os.path.join(images_folder, d))]
-    selected_sottocartella = st.selectbox("Select a subfolder", sottocartelle)
-    if selected_sottocartella:
+    sottocartelle_with_placeholder = ["---Select---"] + sottocartelle
+    selected_sottocartella = st.selectbox("Select a subfolder", sottocartelle_with_placeholder)
+    if selected_sottocartella != "---Select---":
         image_folder = os.path.join(images_folder, selected_sottocartella)
         image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
-        selected_image = st.selectbox("Select an image", image_files)
+	img_files_with_placeholder = ["---Select---"] + image_files
+        selected_image = st.selectbox("Select an image", img_files_with_placeholder)
         uploaded_path = os.path.join(image_folder, selected_image)
 
         colx,coly,colz = st.columns([1,1,1])
         with coly:
     #uploaded_path = st.file_uploader("Choose an image", type=["png", "jpg", "jpeg","bmp"])
-          if uploaded_path is not None:
+          if uploaded_path != "---Select---":
       #    if uploaded_path.type in ["image/png", "image/jpeg", "image/jpg", "image/bmp"]:
       #        print(uploaded_path,uploaded_path.name)
               img = Image.open(uploaded_path)
