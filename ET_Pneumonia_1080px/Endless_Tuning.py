@@ -132,9 +132,9 @@ def pagina_2():
         colx,coly,colz = st.columns([1,1,1])
         with coly:
     #uploaded_path = st.file_uploader("Choose an image", type=["png", "jpg", "jpeg","bmp"])
-          if uploaded_path != "---Select---":
+          if uploaded_path != image_folder + '/' + "---Select---":
       #    if uploaded_path.type in ["image/png", "image/jpeg", "image/jpg", "image/bmp"]:
-      #       print(uploaded_path,uploaded_path.name)
+      #        print(uploaded_path,uploaded_path.name)
               img = Image.open(uploaded_path)
               st.image(img, use_container_width=True)
               st.session_state.uploaded_path = uploaded_path
@@ -146,8 +146,12 @@ def pagina_2():
               if not os.path.exists(img_dir):
                   os.makedirs(img_dir)
               img.save(img_dir+'/case_study.jpg')
-          else:
+          
+          elif uploaded_path is None:
               st.write("An error occurred!")
+
+          else:
+            pass
 
     cola,colb = st.columns([6.6,1])
     with cola:
