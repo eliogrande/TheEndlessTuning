@@ -42,7 +42,7 @@ for images, labels,_ in train_dataloader:
     print(images[0].min(),images[0].max())
     break
 
-model = models.resnet34(pretrained=False)
+model = models.resnet34(weights=None)
 model.fc = nn.Sequential(
     nn.Dropout(0.2),
     nn.Linear(model.fc.in_features, 14),  

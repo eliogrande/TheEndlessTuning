@@ -483,7 +483,7 @@ def pagina_5():
         )
     )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width='stretch')
         
     st.write('')
     st.write('Your previous annotations:')
@@ -563,7 +563,7 @@ def pagina_6():
             yaxis=dict(range=[0,1])
         )
 
-        st.plotly_chart(fig,use_container_width=True)
+        st.plotly_chart(fig,width='stretch')
     
     with col1:
         if "ID" in st.session_state:

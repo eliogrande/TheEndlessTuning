@@ -36,7 +36,7 @@ early_stop_patience = 1 #dopo questa soglia si interrompe
 
  
 # CLASSIFIER
-model = models.resnet50(pretrained=False)
+model = models.resnet50(weights=None)
 model.fc = nn.Sequential(
     nn.Dropout(0.7),
     nn.Linear(model.fc.in_features, 14),

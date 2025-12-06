@@ -41,7 +41,7 @@ test_dataloader,classes=load_data(batch_size=32,dataset_path='Case Study')
 print('Number of classes: ',classes)
 
 
-model = models.resnet50(pretrained=False)
+model = models.resnet50(weights=None)
 model.fc = nn.Sequential(
     nn.Dropout(0.7),
     nn.Linear(model.fc.in_features, 14),

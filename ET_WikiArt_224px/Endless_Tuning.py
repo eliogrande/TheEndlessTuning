@@ -22,7 +22,7 @@ import shutil
 @st.cache_resource#(allow_output_mutation=True)
 def load_model():
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    model = models.resnet50(pretrained=False)
+    model = models.resnet50(weights=None)
     model.fc = nn.Sequential(
         nn.Dropout(0.7),
         nn.Linear(model.fc.in_features, out_features=14),
@@ -120,39 +120,39 @@ def pagina_2():
     st.title("setting #2: WikiArt")
 
     images_folder = './case_studies/'
-    sottocartelle = [d for d in os.listdir(images_folder) if os.path.isdir(os.path.join(images_folder, d))]
-    sottocartelle_with_placeholder = ["---Select---"] + sottocartelle
-    selected_sottocartella = st.selectbox("Select a subfolder", sottocartelle_with_placeholder)
-    if selected_sottocartella != "---Select---":
-        image_folder = os.path.join(images_folder, selected_sottocartella)
-        image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
-        img_files_with_placeholder = ["---Select---"] + image_files
-        selected_image = st.selectbox("Select an image", img_files_with_placeholder)
-        uploaded_path = os.path.join(image_folder, selected_image)
+    options = ["---Select---"]
+    for folder in os.listdir(images_folder):
+        folder_path = os.path.join(images_folder, folder)
+        if os.path.isdir(folder_path):
+            for f in os.listdir(folder_path):
+                if os.path.isfile(os.path.join(folder_path, f)):
+                    options.append(f"{folder}/{f}")
 
-        colx,coly,colz = st.columns([1,1,1])
-        with coly:
-    #uploaded_path = st.file_uploader("Choose an image", type=["png", "jpg", "jpeg","bmp"])
-        if uploaded_path != image_folder + '/' + "---Select---":
-      #    if uploaded_path.type in ["image/png", "image/jpeg", "image/jpg", "image/bmp"]:
-      #        print(uploaded_path,uploaded_path.name)
-              img = Image.open(uploaded_path)
-              st.image(img, use_container_width=True)
-              st.session_state.uploaded_path = uploaded_path
-              if 'log1' not in st.session_state:
-                  st.session_state.log1 = log_interaction("Loaded image", uploaded_path)
-              if os.path.exists('./temp'):
-                  shutil.rmtree('./temp')    
-              img_dir = './temp'
-              if not os.path.exists(img_dir):
-                  os.makedirs(img_dir)
-              img.save(img_dir+'/case_study.jpg')
-          
-          elif uploaded_path is None:
-              st.write("An error occurred!")
+    selected = st.selectbox("Select image", options)
 
-          else:
+    colx,coly,colz = st.columns([1,1,1])
+    with coly:
+
+        if selected != "---Select---":
+            folder, filename = selected.split("/", 1)
+            uploaded_path = os.path.join(images_folder, folder, filename)
+            if uploaded_path is None:
+                st.write('An error occurred!)')
+            img = Image.open(uploaded_path)
+            st.image(img, width='stretch')
+            st.session_state.uploaded_path = uploaded_path
+            if 'log1' not in st.session_state:
+                st.session_state.log1 = log_interaction("Loaded image", uploaded_path)
+            if os.path.exists('./temp'):
+                shutil.rmtree('./temp')    
+            img_dir = './temp'
+            if not os.path.exists(img_dir):
+                os.makedirs(img_dir)
+            img.save(img_dir+'/case_study.jpg')
+        
+        else:
             pass
+
     cola,colb = st.columns([6.6,1])
     with cola:
         if st.button("Back"):
@@ -163,7 +163,7 @@ def pagina_2():
     with colb:
         proceedp2 = st.button('Proceed')
     if proceedp2:
-        if uploaded_path is None:
+        if selected == "---Select---":
             log_interaction("Error: tried to proceed without loading file")
             st.markdown("<p style='font-size: 1vw;'>You firstly need to upload a file!</p>", unsafe_allow_html=True)
         else:
@@ -190,7 +190,7 @@ def pagina_3():
         img = Image.open(st.session_state.uploaded_path)
         col_img, col_notes = st.columns([5,5])
         with col_img:
-            st.image(img, use_container_width=True)
+            st.image(img, width='stretch')
         with col_notes:
             if 'notes3' not in st.session_state:
                 st.session_state.notes3 = "" 
@@ -316,11 +316,11 @@ def pagina_4():
                          N=rise_N,
                          device=device) 
             st.session_state.rise = Image.open('./temp/case_study_rise.jpg') 
-        st.image(st.session_state.rise, use_container_width=True)
+        st.image(st.session_state.rise, width='stretch')
 
     with col2:  
         st.markdown("<br><br><br>", unsafe_allow_html=True)
-        st.image(st.session_state.uploaded_path, use_container_width=True)
+        st.image(st.session_state.uploaded_path, width='stretch')
 
     st.write('Your previous annotations:')
     st.markdown(f"<h3 style='font-size: 0.8vw;'>{st.session_state.notes3}</h3>", unsafe_allow_html=True)
@@ -384,11 +384,11 @@ def pagina_5():
                 print('Running GRADCAM explainer...')
                 explain_gradcam(image_path='./temp/case_study.jpg',model=model) 
                 st.session_state.gradcam = Image.open('./temp/case_study_gradcam.jpg') 
-        st.image(st.session_state.gradcam, use_container_width=True)
+        st.image(st.session_state.gradcam, width='stretch')
 
     with col2: 
         st.markdown("<br><br><br>", unsafe_allow_html=True)
-        st.image(st.session_state.uploaded_path, use_container_width=True)
+        st.image(st.session_state.uploaded_path, width='stretch')
     
     st.write('Your previous annotations:')
     st.markdown(f"<h3 style='font-size: 0.8vw;'>{st.session_state.notes3}</h3>", unsafe_allow_html=True)
@@ -456,15 +456,15 @@ def pagina_6():
     with col3:
         st.write('Rank: #1')  
         similar_imgs_0 = Image.open(similar_imgs[0])
-        st.image(similar_imgs_0, use_container_width=True)
+        st.image(similar_imgs_0, width='stretch')
     with col4:
         st.write('Rank: #2')
         similar_imgs_1 = Image.open(similar_imgs[1]) 
-        st.image(similar_imgs_1, use_container_width=True)
+        st.image(similar_imgs_1, width='stretch')
     with col5:
         st.write('Rank: #3')
         similar_imgs_2 = Image.open(similar_imgs[2])
-        st.image(similar_imgs_2, use_container_width=True)
+        st.image(similar_imgs_2, width='stretch')
 
     col2, col1 = st.columns([0.3, 1])
  
@@ -529,7 +529,7 @@ def pagina_6():
     with col2:
         st.markdown("<br><br><br>", unsafe_allow_html=True)
         st.write('Your case')
-        st.image(st.session_state.uploaded_path, use_container_width=True)
+        st.image(st.session_state.uploaded_path, width='stretch')
 
     st.write('Your previous annotations:')
     st.markdown(f"<h3 style='font-size: 0.8vw;'>{st.session_state.notes3}</h3>", unsafe_allow_html=True)
@@ -612,7 +612,7 @@ def pagina_7():
     
     with col2:
         st.markdown("<br><br><br>", unsafe_allow_html=True)
-        st.image(st.session_state.uploaded_path, use_container_width=True)
+        st.image(st.session_state.uploaded_path, width='stretch')
 
     st.write('Your previous annotations:')
     st.markdown(f"<h3 style='font-size: 0.8vw;'>{st.session_state.notes3}</h3>", unsafe_allow_html=True)
